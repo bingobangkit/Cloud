@@ -1,0 +1,30 @@
+{
+  "name": "gobin",
+  "version": "1.0.0",
+  "description": "Gobin Rest API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bingobangkit/Cloud.git"
+  },
+  "keywords": [
+    "Order",
+    "&",
+    "Login"
+  ],
+  "author": "Fandi Syamsudin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bingobangkit/Cloud/issues"
+  },
+  "homepage": "https://github.com/bingobangkit/Cloud#readme",
+  "dependencies": {
+    "@hapi/hapi": "^20.1.3",
+    "nanoid": "^3.1.23",
+    "nodemon": "^2.0.7"
+  }
+}
