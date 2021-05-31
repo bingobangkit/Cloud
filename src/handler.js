@@ -121,43 +121,11 @@ const editOrderByIdHandler = (request, h) => {
 
   const {
     name,
-    year,
-    author,
-    summary,
-    publisher,
-    pageCount,
-    readPage,
-    reading,
+    address,
+    amount,
+    payment,
   } = request.payload;
 
-  /* 
-    property name is null
-  */
-  if (!name) {
-    const response = h
-      .response({
-        status: 'fail',
-        message: 'Gagal memperbarui order. Mohon isi nama buku',
-      })
-      .code(400);
-    return response;
-  }
-
-  /* 
-    property readpage > pagecount
-  */
-  if (readPage > pageCount) {
-    const response = h
-      .response({
-        status: 'fail',
-        message:
-          'Gagal memperbarui order. readPage tidak boleh lebih besar dari pageCount',
-      })
-      .code(400);
-    return response;
-  }
-
-  const finished = pageCount === readPage;
   const updatedAt = new Date().toISOString();
   const index = orders.findIndex((order) => order.id === orderId);
 
@@ -165,14 +133,9 @@ const editOrderByIdHandler = (request, h) => {
     orders[index] = {
       ...orders[index],
       name,
-      year,
-      author,
-      summary,
-      publisher,
-      pageCount,
-      readPage,
-      reading,
-      finished,
+      address,
+      amount,
+      payment,
       updatedAt,
     };
 
@@ -189,7 +152,7 @@ const editOrderByIdHandler = (request, h) => {
   }
 
   /* 
-    bookid is not found
+    orderid is not found
   */
   const response = h
     .response({
@@ -208,7 +171,7 @@ const deleteOrderByIdHandler = (request, h) => {
     orders.splice(index, 1);
 
     /* 
-      bookid is exist
+      orderid is exist
     */
     const response = h
       .response({
@@ -220,7 +183,7 @@ const deleteOrderByIdHandler = (request, h) => {
   }
 
   /* 
-    bookid is not found
+    orderid is not found
   */
   const response = h
     .response({
