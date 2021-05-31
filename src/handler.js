@@ -4,35 +4,25 @@ const orders = require('./orders');
 const addOrderHandler = (request, h) => {
   const {
     name,
-    year,
-    author,
-    summary,
-    publisher,
-    pageCount,
-    readPage,
-    reading,
+    address,
+    amount,
+    payment,
   } = request.payload;
 
   /* 
     property processing by server
   */
   const id = nanoid(16);
-  const finished = pageCount === readPage;
-  const insertedAt = new Date().toISOString();
-  const updatedAt = insertedAt;
+  const orderedAt = new Date().toISOString();
+  const updatedAt = orderedAt;
 
   const newOrder = {
     id,
     name,
-    year,
-    author,
-    summary,
-    publisher,
-    pageCount,
-    readPage,
-    finished,
-    reading,
-    insertedAt,
+    address,
+    amount,
+    payment,
+    orderedAt,
     updatedAt,
   };
 
@@ -69,15 +59,16 @@ const addOrderHandler = (request, h) => {
 
 const getAllOrdersHandler = (request, h) => {
   const { 
-    name, 
-    reading, 
-    finished 
+    name,
+    address,
+    amount,
+    payment,
   } = request.query;
 
   /* 
     query is null
   */
-  if (!name && !reading && !finished) {
+  if (!name && !address && !amount && !payment) {
     const response = h
       .response({
         status: 'success',
@@ -92,74 +83,6 @@ const getAllOrdersHandler = (request, h) => {
       .code(200);
     return response;
   }
-
-  /* 
-    query based on name
-  */
-  if (name) {
-    const filteredOrdersName = orders.filter((order) => {
-      const nameRegex = new RegExp(name, 'gi');
-      return nameRegex.test(order.name);
-    });
-
-    const response = h
-      .response({
-        status: 'success',
-        data: {
-          orders: filteredOrdersName.map((order) => ({
-            id: order.id,
-            name: order.name,
-            publisher: order.publisher,
-          })),
-        },
-      })
-      .code(200);
-    return response;
-  }
-  
-  /* 
-    query based on reading
-  */
-  if (reading) {
-    const filteredOrdersReading = orders.filter(
-      (order) => Number(order.reading) === Number(reading),
-    );
-
-    const response = h
-      .response({
-        status: 'success',
-        data: {
-          orders: filteredOrdersReading.map((order) => ({
-            id: order.id,
-            name: order.name,
-            publisher: order.publisher,
-          })),
-        },
-      })
-      .code(200);
-    return response;
-  }
-
-   /* 
-    query based on finished
-  */
-  const filteredOrdersFinished = orders.filter(
-    (order) => Number(order.finished) === Number(finished),
-  );
-
-  const response = h
-    .response({
-      status: 'success',
-      data: {
-        orders: filteredOrdersFinished.map((order) => ({
-          id: order.id,
-          name: order.name,
-          publisher: order.publisher,
-        })),
-      },
-    })
-    .code(200);
-  return response;
 };
 
 const getOrderByIdHandler = (request, h) => {
@@ -167,7 +90,7 @@ const getOrderByIdHandler = (request, h) => {
   const order = orders.filter((n) => n.id === orderId)[0];
 
   /* 
-    bookid is exist
+    orderid is exist
   */
   if (order !== undefined) {
     const response = h
@@ -182,7 +105,7 @@ const getOrderByIdHandler = (request, h) => {
   }
 
   /* 
-    bookid is not found
+    orderid is not found
   */
   const response = h
     .response({
