@@ -1,7 +1,7 @@
 const { nanoid } = require('nanoid');
-const books = require('./orders');
+const orders = require('./orders');
 
-const addBookHandler = (request, h) => {
+const addOrderHandler = (request, h) => {
   const {
     name,
     year,
@@ -14,32 +14,6 @@ const addBookHandler = (request, h) => {
   } = request.payload;
 
   /* 
-    property name is null
-  */
-  if (!name) {
-    const response = h
-      .response({
-        status: 'fail',
-        message: 'Gagal menambahkan buku. Mohon isi nama buku',
-      })
-      .code(400);
-    return response;
-  }
-
-  /* 
-    property readpage > pagecount
-  */
-  if (readPage > pageCount) {
-    const response = h
-      .response({
-        status: 'fail',
-        message:
-          'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount',
-      })
-      .code(400);
-    return response;
-  }
-  /* 
     property processing by server
   */
   const id = nanoid(16);
@@ -47,7 +21,7 @@ const addBookHandler = (request, h) => {
   const insertedAt = new Date().toISOString();
   const updatedAt = insertedAt;
 
-  const newBook = {
+  const newOrder = {
     id,
     name,
     year,
@@ -62,8 +36,8 @@ const addBookHandler = (request, h) => {
     updatedAt,
   };
 
-  books.push(newBook);
-  const isSuccess = books.filter((note) => note.id === id).length > 0;
+  orders.push(newOrder);
+  const isSuccess = orders.filter((order) => order.id === id).length > 0;
 
   /* 
     property is complete
@@ -72,9 +46,9 @@ const addBookHandler = (request, h) => {
     const response = h
       .response({
         status: 'success',
-        message: 'Buku berhasil ditambahkan',
+        message: 'Order berhasil ditambahkan',
         data: {
-          bookId: id,
+          orderId: id,
         },
       })
       .code(201);
@@ -87,13 +61,13 @@ const addBookHandler = (request, h) => {
   const response = h
     .response({
       status: 'fail',
-      message: 'Buku gagal ditambahkan',
+      message: 'Order gagal ditambahkan',
     })
     .code(500);
   return response;
 };
 
-const getAllBooksHandler = (request, h) => {
+const getAllOrdersHandler = (request, h) => {
   const { 
     name, 
     reading, 
@@ -108,10 +82,10 @@ const getAllBooksHandler = (request, h) => {
       .response({
         status: 'success',
         data: {
-          books: books.map((book) => ({
-            id: book.id,
-            name: book.name,
-            publisher: book.publisher,
+          orders: orders.map((order) => ({
+            id: order.id,
+            name: order.name,
+            publisher: order.publisher,
           })),
         },
       })
@@ -123,19 +97,19 @@ const getAllBooksHandler = (request, h) => {
     query based on name
   */
   if (name) {
-    const filteredBooksName = books.filter((book) => {
+    const filteredOrdersName = orders.filter((order) => {
       const nameRegex = new RegExp(name, 'gi');
-      return nameRegex.test(book.name);
+      return nameRegex.test(order.name);
     });
 
     const response = h
       .response({
         status: 'success',
         data: {
-          books: filteredBooksName.map((book) => ({
-            id: book.id,
-            name: book.name,
-            publisher: book.publisher,
+          orders: filteredOrdersName.map((order) => ({
+            id: order.id,
+            name: order.name,
+            publisher: order.publisher,
           })),
         },
       })
@@ -147,18 +121,18 @@ const getAllBooksHandler = (request, h) => {
     query based on reading
   */
   if (reading) {
-    const filteredBooksReading = books.filter(
-      (book) => Number(book.reading) === Number(reading),
+    const filteredOrdersReading = orders.filter(
+      (order) => Number(order.reading) === Number(reading),
     );
 
     const response = h
       .response({
         status: 'success',
         data: {
-          books: filteredBooksReading.map((book) => ({
-            id: book.id,
-            name: book.name,
-            publisher: book.publisher,
+          orders: filteredOrdersReading.map((order) => ({
+            id: order.id,
+            name: order.name,
+            publisher: order.publisher,
           })),
         },
       })
@@ -169,18 +143,18 @@ const getAllBooksHandler = (request, h) => {
    /* 
     query based on finished
   */
-  const filteredBooksFinished = books.filter(
-    (book) => Number(book.finished) === Number(finished),
+  const filteredOrdersFinished = orders.filter(
+    (order) => Number(order.finished) === Number(finished),
   );
 
   const response = h
     .response({
       status: 'success',
       data: {
-        books: filteredBooksFinished.map((book) => ({
-          id: book.id,
-          name: book.name,
-          publisher: book.publisher,
+        orders: filteredOrdersFinished.map((order) => ({
+          id: order.id,
+          name: order.name,
+          publisher: order.publisher,
         })),
       },
     })
@@ -188,19 +162,19 @@ const getAllBooksHandler = (request, h) => {
   return response;
 };
 
-const getBookByIdHandler = (request, h) => {
-  const { bookId } = request.params;
-  const book = books.filter((n) => n.id === bookId)[0];
+const getOrderByIdHandler = (request, h) => {
+  const { orderId } = request.params;
+  const order = orders.filter((n) => n.id === orderId)[0];
 
   /* 
     bookid is exist
   */
-  if (book !== undefined) {
+  if (order !== undefined) {
     const response = h
       .response({
         status: 'success',
         data: {
-          book,
+          order,
         },
       })
       .code(200);
@@ -213,14 +187,14 @@ const getBookByIdHandler = (request, h) => {
   const response = h
     .response({
       status: 'fail',
-      message: 'Buku tidak ditemukan',
+      message: 'Order tidak ditemukan',
     })
     .code(404);
   return response;
 };
 
-const editBookByIdHandler = (request, h) => {
-  const { bookId } = request.params;
+const editOrderByIdHandler = (request, h) => {
+  const { orderId } = request.params;
 
   const {
     name,
@@ -240,7 +214,7 @@ const editBookByIdHandler = (request, h) => {
     const response = h
       .response({
         status: 'fail',
-        message: 'Gagal memperbarui buku. Mohon isi nama buku',
+        message: 'Gagal memperbarui order. Mohon isi nama buku',
       })
       .code(400);
     return response;
@@ -254,7 +228,7 @@ const editBookByIdHandler = (request, h) => {
       .response({
         status: 'fail',
         message:
-          'Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount',
+          'Gagal memperbarui order. readPage tidak boleh lebih besar dari pageCount',
       })
       .code(400);
     return response;
@@ -262,11 +236,11 @@ const editBookByIdHandler = (request, h) => {
 
   const finished = pageCount === readPage;
   const updatedAt = new Date().toISOString();
-  const index = books.findIndex((note) => note.id === bookId);
+  const index = orders.findIndex((order) => order.id === orderId);
 
   if (index !== -1) {
-    books[index] = {
-      ...books[index],
+    orders[index] = {
+      ...orders[index],
       name,
       year,
       author,
@@ -285,7 +259,7 @@ const editBookByIdHandler = (request, h) => {
     const response = h
       .response({
         status: 'success',
-        message: 'Buku berhasil diperbarui',
+        message: 'Order berhasil diperbarui',
       })
       .code(200);
     return response;
@@ -297,18 +271,18 @@ const editBookByIdHandler = (request, h) => {
   const response = h
     .response({
       status: 'fail',
-      message: 'Gagal memperbarui buku. Id tidak ditemukan',
+      message: 'Gagal memperbarui order. Id tidak ditemukan',
     })
     .code(404);
   return response;
 };
 
-const deleteBookByIdHandler = (request, h) => {
-  const { bookId } = request.params;
-  const index = books.findIndex((note) => note.id === bookId); 
+const deleteOrderByIdHandler = (request, h) => {
+  const { orderId } = request.params;
+  const index = orders.findIndex((order) => order.id === orderId); 
 
   if (index !== -1) {
-    books.splice(index, 1);
+    orders.splice(index, 1);
 
     /* 
       bookid is exist
@@ -316,7 +290,7 @@ const deleteBookByIdHandler = (request, h) => {
     const response = h
       .response({
         status: 'success',
-        message: 'Buku berhasil dihapus',
+        message: 'Order berhasil dihapus',
       })
       .code(200);
     return response;
@@ -328,16 +302,16 @@ const deleteBookByIdHandler = (request, h) => {
   const response = h
     .response({
       status: 'fail',
-      message: 'Buku gagal dihapus. Id tidak ditemukan',
+      message: 'Order gagal dihapus. Id tidak ditemukan',
     })
     .code(404);
   return response;
 };
 
 module.exports = {
-  addBookHandler,
-  getAllBooksHandler,
-  getBookByIdHandler,
-  editBookByIdHandler,
-  deleteBookByIdHandler,
+  addOrderHandler,
+  getAllOrdersHandler,
+  getOrderByIdHandler,
+  editOrderByIdHandler,
+  deleteOrderByIdHandler,
 };
