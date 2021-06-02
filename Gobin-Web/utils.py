@@ -5,7 +5,6 @@ from google.api_core.client_options import ClientOptions
 base_classes = ['1_polyethylene_PET',
  '2_high_density_polyethylene_PE-HD',
  '3_polyvinylchloride_PVC',
- 'grilled_salmon',
  '4_low_density_polyethylene_PE-LD',
  '5_polypropylene_PP',
  '6_polystyrene_PS',
