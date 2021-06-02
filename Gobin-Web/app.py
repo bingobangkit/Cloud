@@ -6,7 +6,7 @@ import streamlit as st
 import tensorflow as tf
 from utils import load_and_prep_image, classes_and_models, update_logger, predict_json
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "go-bin-capstone-cc319e212459.json" # credential service account
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "go-bin-capstone-1516532ab6ab.json" # credential service account
 PROJECT = "go-bin-capstone" # ID Project
 REGION = "asia-southeast1" # Region host model
 
@@ -28,15 +28,15 @@ def make_prediction(image, model, class_names):
 
 choose_model = st.sidebar.selectbox(
     "Pick model you'd like to use",
-    ("Model 1 (10 food classes)", 
-     "Model 2 (11 food classes)", 
-     "Model 3 (11 food classes + non-food class)") 
+    ("Model 1", 
+     "Model 2", 
+     "Model 3") 
 )
 
-if choose_model == "Model 1 (10 food classes)":
+if choose_model == "Model 1":
     CLASSES = classes_and_models["model_1"]["classes"]
     MODEL = classes_and_models["model_1"]["model_name"]
-elif choose_model == "Model 2 (11 food classes)":
+elif choose_model == "Model 2":
     CLASSES = classes_and_models["model_2"]["classes"]
     MODEL = classes_and_models["model_2"]["model_name"]
 else:
@@ -44,7 +44,7 @@ else:
     MODEL = classes_and_models["model_3"]["model_name"]
 
 if st.checkbox("Show classes"):
-    st.write(f"You chose {MODEL}, these are the classes of food it can identify:\n", CLASSES)
+    st.write(f"You chose {MODEL}, these are the classes of plastic code it can identify:\n", CLASSES)
 
 uploaded_file = st.file_uploader(label="Upload an image of plastic code",
                                  type=["png", "jpeg", "jpg"])

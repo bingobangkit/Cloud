@@ -2,29 +2,28 @@ import tensorflow as tf
 import googleapiclient.discovery
 from google.api_core.client_options import ClientOptions
 
-base_classes = ['chicken_curry',
- 'chicken_wings',
- 'fried_rice',
+base_classes = ['1_polyethylene_PET',
+ '2_high_density_polyethylene_PE-HD',
+ '3_polyvinylchloride_PVC',
  'grilled_salmon',
- 'hamburger',
- 'ice_cream',
- 'pizza',
- 'ramen',
- 'steak',
- 'sushi']
+ '4_low_density_polyethylene_PE-LD',
+ '5_polypropylene_PP',
+ '6_polystyrene_PS',
+ '7_other_resins',
+ '8_no_plastic']
 
 classes_and_models = {
     "model_1": {
         "classes": base_classes,
-        "model_name": "go_bin_capstone"
+        "model_name": "fandi_efficientnet_model"
     },
     "model_2": {
-        "classes": sorted(base_classes + ["donut"]),
-        "model_name": "efficientnet_model_2_11_classes"
+        "classes": base_classes,
+        "model_name": "model_v1"
     },
     "model_3": {
-        "classes": sorted(base_classes + ["donut", "not_food"]),
-        "model_name": "efficientnet_model_3_12_classes"
+        "classes": base_classes,
+        "model_name": "third_model"
     }
 }
 

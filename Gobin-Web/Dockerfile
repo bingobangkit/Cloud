@@ -1,18 +1,15 @@
 FROM python:3.7
 
-## App engine stuff
-# Expose port you want your app on
+# port number
 EXPOSE 8080
 
-# Upgrade pip 
+# environment
 RUN pip install -U pip
-
 COPY requirements.txt app/requirements.txt
 RUN pip install -r app/requirements.txt
 
-# Create a new directory for app (keep it in its own directory)
+# app dir
 COPY . /app
 WORKDIR app
 
-# Run
 ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=8080", "--server.address=0.0.0.0"]
