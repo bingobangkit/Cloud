@@ -18,7 +18,7 @@ classes_and_models = {
     },
     "model_2": {
         "classes": base_classes,
-        "model_name": "model_v1"
+        "model_name": "second_model"
     },
     "model_3": {
         "classes": base_classes,
