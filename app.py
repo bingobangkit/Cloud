@@ -4,10 +4,8 @@ import requests
 import state
 import streamlit as st
 import tensorflow as tf
-# from utils import load_and_prep_image, classes_and_models, update_logger, predict_json
 from predict import predict
 from image import preprocess_image
-# from logger import result_logger
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "go-bin-capstone-1516532ab6ab.json" # credential service account
 PROJECT = "go-bin-capstone" # ID Project
