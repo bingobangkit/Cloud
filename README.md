@@ -21,36 +21,36 @@ https://asia-southeast1-ml.googleapis.com/v1/projects/go-bin-capstone/models/fan
 ### Deploy The Web App on Google Kubernetes Engine
 ![Screenshot_4](https://user-images.githubusercontent.com/54672242/121013509-1af8df80-c7c3-11eb-953a-f14ae63dc8ac.jpg)
 
-1. Set project id 
-#### export PROJECT_ID=go-bin-capstone
+#### Set project id 
+##### export PROJECT_ID=go-bin-capstone
 
-2. Build the docker image 
-#### docker build -t gcr.io/${PROJECT_ID}/gobin-web:v1 .
+#### Build the docker image 
+##### docker build -t gcr.io/${PROJECT_ID}/gobin-web:v1 .
 
-3. Check the docker image
-#### docker images
+#### Check the docker image
+##### docker images
 
-4. Authenticate to Container Registry 
-#### gcloud auth configure-docker
+#### Authenticate to Container Registry 
+##### gcloud auth configure-docker
 
-5. Upload the docker image to Google Container Registry
-#### docker push gcr.io/${PROJECT_ID}/gobin-web:v1
+#### Upload the docker image to Google Container Registry
+##### docker push gcr.io/${PROJECT_ID}/gobin-web:v1
 
-6. Set zone 
-#### gcloud config set compute/zone asia-southeast2
+#### Set zone 
+##### gcloud config set compute/zone asia-southeast2
 
-7. Create cluster 
-#### gcloud container clusters create gobin-web-cluster --num-nodes=2
+#### Create cluster 
+##### gcloud container clusters create gobin-web-cluster --num-nodes=2
 ![Screenshot_2](https://user-images.githubusercontent.com/54672242/121010756-00713700-c7c0-11eb-8918-7064ef46b611.jpg)
 
-8. Deploy the Web App <br/>
-#### kubectl create deployment gobin-web --image=gcr.io/${PROJECT_ID}/gobin-web:v1
+#### Deploy the Web App <br/>
+##### kubectl create deployment gobin-web --image=gcr.io/${PROJECT_ID}/gobin-web:v1
 
-9. Expose the Web App <br/>
-#### kubectl expose deployment gobin-web --type=LoadBalancer --port 80 --target-port 8501
+#### Expose the Web App <br/>
+##### kubectl expose deployment gobin-web --type=LoadBalancer --port 80 --target-port 8501
 
-10. Check the services
-#### kubectl get service <br/>
+#### Check the services
+##### kubectl get service <br/>
 ![Screenshot_3](https://user-images.githubusercontent.com/54672242/121011270-9f962e80-c7c0-11eb-974d-d3cdd17733c9.jpg)
 
 ## Cloud Implementation on Android App
