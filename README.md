@@ -54,11 +54,12 @@ https://asia-southeast1-ml.googleapis.com/v1/projects/go-bin-capstone/models/fan
 ![Screenshot_3](https://user-images.githubusercontent.com/54672242/121011270-9f962e80-c7c0-11eb-974d-d3cdd17733c9.jpg)
 
 ## Cloud Implementation on Android App
-![Screenshot_10](https://user-images.githubusercontent.com/54672242/121016843-d0796200-c7c6-11eb-838b-0914c7bce132.jpg)
+![Screenshot_20](https://user-images.githubusercontent.com/54672242/121318561-8d89cc80-c935-11eb-95f7-5878af26a7f0.jpg)
 
+![giiu](https://user-images.githubusercontent.com/54672242/121318851-d6418580-c935-11eb-8aaf-518306403119.jpg)
 ![Screenshot_6](https://user-images.githubusercontent.com/54672242/121014314-0a953480-c7c4-11eb-9894-9f0e2a548d92.jpg)
 ![Screenshot_7](https://user-images.githubusercontent.com/54672242/121014326-0cf78e80-c7c4-11eb-8da8-bf60ceed3917.jpg)
 ![Screenshot_8](https://user-images.githubusercontent.com/54672242/121014327-0d902500-c7c4-11eb-8cf9-a8477c40df20.jpg)
 ![Screenshot_9](https://user-images.githubusercontent.com/54672242/121014329-0e28bb80-c7c4-11eb-9e7e-e91ee1925380.jpg)
 
-## Thank You !!! B21-CAP0290
+## Thank You !!! B21-CAP0290:)
